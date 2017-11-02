@@ -4,14 +4,11 @@ const path = require("path");
 const mysql = require("mysql");
 const app = express();
 
-// When to name response and when to name request?
 
-app.get("/api/friends", function(err, res){
-	if (err) throw err;
-	res.json()
-});
+module.exports = function(app) {
 
-app.post("/api/friends", function(err, res){
-	if (err) throw err;
-	
-});
+    app.get("/friends", function(req, res) {
+        res.sendfile(path.join(__dirname, "../data/friends.js"))
+    });
+
+}
