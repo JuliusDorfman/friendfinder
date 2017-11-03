@@ -11,45 +11,47 @@
 <body>
     <div class="container">
         <div class="row col-lg-10 col-md-10 col-sm-10"></div>
+        <!-- Next time instead of hardcoding, will dynamically generate the h4s and ids and classes -->
         <h2>Survey Questions</h2>
         <hr>
         <h3>Tell us about yourself!</h3>
         <h4>*Name</h4>
-        <input type="text" id="name"></input>
+        <input type="text" id="userName"></input>
         <h4>*Show us what you look like!</h4>
-        <input type="text" id="picture"></input>
+        <input type="text" id="userPhoto"></input>
+        <button id="submit-photo">Submit</button>
         <h6>*required</h6>
         <hr>
         <h3>Question 1</h3>
         <h4>I value the density of my lats over the density of neurons in my brain.</h4>
-        <div id="q1" class="choices"></div>
+        <div class="choices" id="q1"></div>
         <h3>Question 2</h3>
         <h4>Never skip leg day.</h4>
-        <div id="q2" class="choices"></div>
+        <div class="choices" id="q2"></div>
         <h3>Question 3</h3>
         <h4>Cardio > Weightlifting.</h4>
-        <div id="q3" class="choices"></div>
+        <div class="choices" id="q3"></div>
         <h3>Question 4</h3>
         <h4>Morning workouts are the best!.</h4>
-        <div id="q4" class="choices"></div>
+        <div class="choices" id="q4"></div>
         <h3>Question 5</h3>
         <h4>It's important to take rest days.</h4>
-        <div id="q5" class="choices"></div>
+        <div class="choices" id="q5"></div>
         <h3>Question 6</h3>
         <h4>I love having a workout buddy!</h4>
-        <div id="q6" class="choices"></div>
+        <div class="choices" id="q6"></div>
         <h3>Question 7</h3>
         <h4>Dont even talk to me in the gym.</h4>
-        <div id="q7" class="choices"></div>
+        <div class="choices" id="q7"></div>
         <h3>Question 8</h3>
         <h4>I workout every muscle every day.</h4>
-        <div id="q8" class="choices"></div>
+        <div class="choices" id="q8"></div>
         <h3>Question 9</h3>
         <h4>My workouts last for hours.</h4>
-        <div id="q9" class="choices"></div>
+        <div class="choices" id="q9"></div>
         <h3>Question 10</h3>
         <h4>I always put my weights back.</h4>
-        <div id="q10" class="choices"></div>
+        <div class="choices" id="q10"></div>
     </div>
     <div class="container">
         <div class="row">
@@ -62,7 +64,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <button type="submit">Find Your Buddy</button>
+            <button id="get-result" type="submit">Find Your Buddy</button>
         </div>
     </div>
     <br>
@@ -74,7 +76,7 @@
             <footer class="fixed-bottom text-center">
                 <div>
                     <div>
-                        <a href="../<data></data>/friends">All Participants</a>&ensp;|&ensp;
+                        <a href="./api/friends">All Participants</a>&ensp;|&ensp;
                         <a href="https://github.com/JuliusDorfman/friendfinder.git">GitHub Repo</a>&ensp;|&ensp;
                         <a href="">Heroku Repo</a>
                     </div>
@@ -83,20 +85,45 @@
         </div>
     </div>
 </body>
-
 <script>
 // Dynamically create number of options in dropdown list
-var options = 5
-var userChoices = $("<select />")
-for (i = 0; i < options + 1; i++) {
-    $("<option />")
-        .attr("data", i)
-        .text(i)
-        .appendTo(userChoices)
-}
-userChoices.appendTo(".choices")
-</script>
+$(document).ready(function() {
+    var questions = 10;
+    var options = 5;
 
+    function generateDrop() {
+        for (i = 0; i < questions +1; i++) {
+            var selector = $("<select />")
+                .addClass("listHead")
+                .addClass("q" + i);
+            selector.appendTo("#q" + i);
+        }
+
+        for (i = 0; i < options + 1; i++) {
+            var dropList = $("<option />")
+                .attr("data", i)
+                .text(i);
+            dropList.appendTo(".listHead")
+        }
+    }
+    generateDrop();
+    // Click event takes all the values of the options selected and compares absolute values of related questions among prior existing objects in friends.js
+    tally = [];
+
+    $("#get-result").on("click", function() {
+        event.preventDefault();
+        var userInfo = {
+            name: $("#userName").val().trim(),
+            photo: $("#userPhoto").val().trim(),
+            scores: tally
+        }
+        for (i = 1; i < questions+1; i++) {
+            tally.push($(".q" + i).val())
+        }
+        console.log(tally);
+    })
+});
+</script>
 <style>
 .container {
     margin-left: auto;
@@ -104,20 +131,6 @@ userChoices.appendTo(".choices")
     padding-left: 15px;
     padding-right: 15px;
 }
-
-
-
-
-
-
-
-
-/*footer {
-    position: fixed;
-    height: 100px;
-    bottom: 5;
-    width: 100%;
-}*/
 </style>
 
 </html>

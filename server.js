@@ -5,7 +5,7 @@ const mysql = require("mysql");
 
 var app = express();
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;    
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -27,6 +27,5 @@ app.listen(PORT, function(err, res) {
         throw err
         console.log(res);
     }
-    console.log(res);
     console.log("App listening on PORT: " + PORT);
 });
