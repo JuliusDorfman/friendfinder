@@ -7,12 +7,6 @@ var app = express();
 
 var PORT = process.env.PORT || 3000;    
 
-var connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "lifters"
-});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
