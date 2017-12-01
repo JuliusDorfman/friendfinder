@@ -1,6 +1,9 @@
 # friendfinder
 
-This app exists to find the user, love. After a series of questions, the user will be matched with another user in our database based on similarities of answer.
+This app exists to find the user, love. After a series of questions, the user will be matched with another user in our database based on similarities of answer. Upon matching, user will be displayed Username, picture, and phone number of match.
+
+# Future plans
+- Open up line of communication
 
 ## Getting Started
 
